@@ -140,7 +140,5 @@ sudo systemctl stop multiprocess.service
 
 * [swoole](http://www.swoole.com/)
 
-## 10. 联系
 
-qq群：141059677
 
