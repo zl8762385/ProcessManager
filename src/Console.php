@@ -151,10 +151,14 @@ EOF;
     }
 
 
-    private function saveMasterData($data=[])
-    {
+    /*
+     * 保存master状态
+     * */
+    private function saveMasterData($data=[]) {
+        $mName = $this->config['moduleName'] ?? '' ;
+        $pidInfoFile =$this->config['pidPath'] . '/' . $mName .'_'. Process::PID_INFO_FILE;
 
-        file_put_contents(Process::PID_INFO_FILE, serialize($data));
+        file_put_contents($pidInfoFile, serialize($data));
     }
 
 
