@@ -31,9 +31,9 @@ return $config = [
     //exec任务相关,name的名字不能相同
     'exec'      => [
         [
-            // 名称即使文件名，请慎用
-            'name'      => 'member_1',
+            'name' => 'member_1',// 名称即使文件名，请慎用
             'max_request' => 1000,
+            'memory_limit' => 1024, // 单位:MB 最大内存限制，超出将自动销毁重新启动
             'workNum'   => 1
         ],
         /*

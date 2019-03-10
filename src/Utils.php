@@ -39,8 +39,8 @@ class Utils
       * 获取内存使用情况
       * @return string
       * */
-    public static function getMemoryUsage()
-    {
-        return round(memory_get_usage(true) / (1024 * 1024), 2) . ' MB';
+    public static function getMemoryUsage() {
+        // 类型是MB,获取时需要手动加上
+        return round(memory_get_usage() / (1024 * 1024), 2);
     }
 }

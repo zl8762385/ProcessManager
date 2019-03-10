@@ -15,11 +15,12 @@ class member_1 {
         $tmp4 = str_repeat('http://www.nowamagic.net/', 800000);
         $tmp5 = str_repeat('http://www.nowamagic.net/', 800000);
 
-        $d1 = $this->curl_request( 'http://www.nowamagic.net/' );
-        $d2 = $this->curl_request( 'http://www.nowamagic.net/' );
-        $d3 = $this->curl_request( 'http://www.nowamagic.net/' );
-        $d4 = $this->curl_request( 'http://www.nowamagic.net/' );
-        //echo "member 11111  \n";
+
+        $array = array_fill(1, 8000, "laruence");
+foreach ($array as $key => $value) {
+    ${$value . $key} = NULL;
+}
+        echo "member 111112222  \n";
         //sleep(5);
     }
     

@@ -95,6 +95,7 @@ class Process
 
             $workOne['name']    =$value['name'];
             $workOne['max_request'] =$value['max_request'];
+            $workOne['memory_limit'] =$value['memory_limit'];
             //子进程带上通用识别文字，方便ps查询进程
             // $workOne['binArgs']=array_merge($value['binArgs'], [$this->processName]);
             //开启多个子进程
@@ -122,6 +123,7 @@ class Process
 
             $workOne['name'] =$value['name'];
             $workOne['max_request'] =$value['max_request'];
+            $workOne['memory_limit'] =$value['memory_limit'];
             //子进程带上通用识别文字，方便ps查询进程
             // $workOne['binArgs']=array_merge($value['binArgs'], [$this->processName]);
             //开启多个子进程
@@ -150,7 +152,7 @@ class Process
 
                 $num = 0;
                 do {
-                    echo "开始: ".memory_get_usage()." 字节 \n";
+                    //echo Utils::getMemoryUsage(). "MB     进程PID : $worker->pid 活着\n";
                     $job->run();
 
                     $this->status=$this->getMasterData(self::MASTER_KEY);
@@ -161,14 +163,11 @@ class Process
                         $flag = false;
                     }
 
-                    //echo $num ."===". "\n";
-                    echo Utils::getMemoryUsage(). $worker->pid. "内存使用 \n";
+                    // 计算进程内存使用限制
+                    if ( Utils::getMemoryUsage() > $workOne['memory_limit']  ) {
+                        $flag = false;
+                    }
 
-
-                    /*
-                    */
-                    // echo "最终: ".memory_get_usage()." 字节 \n";
-                    echo "内存总量: ".memory_get_peak_usage()." 字节 \n";
                     usleep( $this->sleepTime );
                     ++$num;
                 } while ( $flag );

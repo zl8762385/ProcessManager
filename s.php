@@ -6,4 +6,4 @@ function convert($size)
 }
 
 //echo convert(memory_get_usage(true)); // 123 kb
-echo convert( 120589200); // 123 kb
+echo convert(607968 ); // 123 kb
