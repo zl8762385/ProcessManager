@@ -21,6 +21,12 @@ foreach ($array as $key => $value) {
     ${$value . $key} = NULL;
 }
         echo "member 111112222  \n";
+        // 调用框架函数
+        echo test();
+
+        // 调用框架外部函数
+        echo framwork_func();
+        echo "member 33333\n";
         //sleep(5);
     }
     

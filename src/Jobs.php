@@ -18,6 +18,9 @@ class Jobs {
     // 脚本名称
     private $taskFile = "";
 
+    // 执行任务前，需要加载的外部框架文件
+    private $workerLoadFileBefore = [];
+
     public function __construct( & $workerOne ){
         $this->config = Config::getConfig();
         $this->workerOne = $workerOne;
@@ -25,7 +28,12 @@ class Jobs {
         $this->logger = new Logs(Config::getConfig()['logPath'] ?? '', $this->config['logSaveFileApp'] ?? '');
 
         $this->taskFile = $this->workerOne['name'] ?? '';
-        $this->require_file($this->taskFile . ".php");
+
+        if ( isset( $this->config['workerLoadFileBefore'] ) && !empty( $this->config['workerLoadFileBefore'] ) ) {
+            $this->workerLoadFileBefore = $this->config['workerLoadFileBefore'];
+        }
+
+
     }
 
     /*
@@ -34,7 +42,11 @@ class Jobs {
      * */
     public function run () {
 
+        // 加载文件
+        $this->loadFiles();
+
         try {
+            // 执行run
             $taskJobs= new $this->taskFile();
             call_user_func_array( array( $taskJobs, "run"), [] );
         } catch( \Throwable $e ) {
@@ -44,6 +56,28 @@ class Jobs {
 
         }
 
+    }
+
+    /*
+     * 加载文件
+     * @return include
+     * */
+    private function loadFiles() {
+        // load外部框架文件
+        $this->loadFrameworkBefore();
+
+        $this->require_file($this->taskFile . ".php");
+    }
+
+    /*
+     * 加载任务前融合业务框架中的代码,如您需要在任务中执行您业务代码，请看这里
+     * @return include
+     * */
+    private function loadFrameworkBefore() {
+
+        foreach( $this->workerLoadFileBefore as $k => $file ) {
+            $this->require_file( $file );
+        }
     }
 
     /*
