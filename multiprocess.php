@@ -2,7 +2,7 @@
 
 /*
  * 入口脚本
- * 使用方法：php multiprocess -s=start -c=member.php
+ * 使用方法：php multiprocess -s stop -c member.php
  * */
 
 define('APP_PATH', __DIR__);
