@@ -1,0 +1,78 @@
+2019/03/11 18:39:31 YCFLOG [process] [info] [workers.log] [PID2048] 
+ process start pid: 2048 
+2019/03/11 18:39:31 YCFLOG [process] [info] [workers.log] [PID2048] 
+ worker id: 0 pid: 2049 is start... 
+2019/03/11 18:39:31 YCFLOG [process] [info] [workers.log] [PID2048] 
+ worker id: 1 pid: 2050 is start... 
+2019/03/11 18:39:35 YCFLOG [process] [info] [workers.log] [PID2050] 
+ worker id: 1 is done!!! 
+2019/03/11 18:39:35 YCFLOG [process] [info] [workers.log] [PID2049] 
+ worker id: 0 is done!!! 
+2019/03/11 18:39:35 YCFLOG [process] [info] [workers.log] [PID2048] 
+ Worker Exit, kill_signal=0 PID=2050 
+2019/03/11 18:39:35 YCFLOG [process] [info] [workers.log] [PID2048] 
+ Worker count: 1  [member_1]  2 
+2019/03/11 18:39:35 YCFLOG [process] [info] [workers.log] [PID2048] 
+ Worker Exit, kill_signal=0 PID=2049 
+2019/03/11 18:39:35 YCFLOG [process] [info] [workers.log] [PID2048] 
+ Worker count: 0  [member_1]  2 
+2019/03/11 18:39:35 YCFLOG [process] [info] [workers.log] [PID2048] 
+ 主进程收到所有信号子进程的退出信号，子进程安全退出完成 
+2019/03/11 18:39:35 YCFLOG [process] [info] [workers.log] [PID2048] 
+ 主进程退出前删除woker redis key： member_1 
+2019/03/11 18:39:35 YCFLOG [process] [info] [workers.log] [PID2048] 
+ 主进程退出前删除master redis key： status 
+2019/03/11 18:39:35 YCFLOG [process] [info] [workers.log] [PID2048] 
+ Time: 1552300775.1407主进程2048退出 
+2019/03/11 19:04:40 YCFLOG [process] [info] [workers.log] [PID2058] 
+ process start pid: 2058 
+2019/03/11 19:04:40 YCFLOG [process] [info] [workers.log] [PID2058] 
+ worker id: 0 pid: 2059 is start... 
+2019/03/11 19:04:40 YCFLOG [process] [info] [workers.log] [PID2058] 
+ worker id: 1 pid: 2060 is start... 
+2019/03/11 19:04:45 YCFLOG [process] [info] [workers.log] [PID2060] 
+ worker id: 1 is done!!! 
+2019/03/11 19:04:45 YCFLOG [process] [info] [workers.log] [PID2059] 
+ worker id: 0 is done!!! 
+2019/03/11 19:04:45 YCFLOG [process] [info] [workers.log] [PID2058] 
+ Worker Exit, kill_signal=0 PID=2060 
+2019/03/11 19:04:45 YCFLOG [process] [info] [workers.log] [PID2058] 
+ Worker count: 1  [member_1]  2 
+2019/03/11 19:04:45 YCFLOG [process] [info] [workers.log] [PID2058] 
+ Worker Exit, kill_signal=0 PID=2059 
+2019/03/11 19:04:45 YCFLOG [process] [info] [workers.log] [PID2058] 
+ Worker count: 0  [member_1]  2 
+2019/03/11 19:04:45 YCFLOG [process] [info] [workers.log] [PID2058] 
+ 主进程收到所有信号子进程的退出信号，子进程安全退出完成 
+2019/03/11 19:04:45 YCFLOG [process] [info] [workers.log] [PID2058] 
+ 主进程退出前删除woker redis key： member_1 
+2019/03/11 19:04:45 YCFLOG [process] [info] [workers.log] [PID2058] 
+ 主进程退出前删除master redis key： status 
+2019/03/11 19:04:45 YCFLOG [process] [info] [workers.log] [PID2058] 
+ Time: 1552302285.6364主进程2058退出 
+2019/03/11 19:05:19 YCFLOG [process] [info] [workers.log] [PID2063] 
+ process start pid: 2063 
+2019/03/11 19:05:19 YCFLOG [process] [info] [workers.log] [PID2063] 
+ worker id: 0 pid: 2064 is start... 
+2019/03/11 19:05:19 YCFLOG [process] [info] [workers.log] [PID2063] 
+ worker id: 1 pid: 2065 is start... 
+2019/03/11 19:05:21 YCFLOG [process] [info] [workers.log] [PID2064] 
+ worker id: 0 is done!!! 
+2019/03/11 19:05:21 YCFLOG [process] [info] [workers.log] [PID2063] 
+ Worker Exit, kill_signal=0 PID=2064 
+2019/03/11 19:05:21 YCFLOG [process] [info] [workers.log] [PID2063] 
+ Worker count: 1  [member_1]  2 
+2019/03/11 19:05:21 YCFLOG [process] [info] [workers.log] [PID2065] 
+ worker id: 1 is done!!! 
+2019/03/11 19:05:21 YCFLOG [process] [info] [workers.log] [PID2063] 
+ Worker Exit, kill_signal=0 PID=2065 
+2019/03/11 19:05:21 YCFLOG [process] [info] [workers.log] [PID2063] 
+ Worker count: 0  [member_1]  2 
+2019/03/11 19:05:21 YCFLOG [process] [info] [workers.log] [PID2063] 
+ 主进程收到所有信号子进程的退出信号，子进程安全退出完成 
+2019/03/11 19:05:21 YCFLOG [process] [info] [workers.log] [PID2063] 
+ 主进程退出前删除woker redis key： member_1 
+2019/03/11 19:05:21 YCFLOG [process] [info] [workers.log] [PID2063] 
+ 主进程退出前删除master redis key： status 
+2019/03/11 19:05:21 YCFLOG [process] [info] [workers.log] [PID2063] 
+ Time: 1552302321.7299主进程2063退出 

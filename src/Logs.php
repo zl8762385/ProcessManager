@@ -23,7 +23,7 @@ class Logs
     public $maxFileSize        = 1000; // in MB
 
     //系统日志标识
-    private $logSystem       = 'swoole-jobs';
+    private $logSystem       = 'process';
 
     private $logPath      = '';
     //单个类型log

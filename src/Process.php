@@ -159,7 +159,7 @@ class Process
                     $flag = ( self::STATUS_RUNNING == $this->status ) ? true : false ;
 
                     // 计算进程最大请求数
-                    if ( self::STATUS_RUNNING == $this->status && $num > $workOne['max_request'] ) {
+                    if ( self::STATUS_RUNNING == $this->status && !empty( $workOne['max_request'] ) && $num > $workOne['max_request'] ) {
                         $flag = false;
                     }
 
