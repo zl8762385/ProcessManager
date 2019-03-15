@@ -5,7 +5,7 @@
  * @by xiaoliang
  * */
 
-namespace Kcloze\MultiProcess;
+namespace Clever\ProcessManager;
 
 class Process
 {
@@ -20,7 +20,7 @@ class Process
 
     const PID_INFO_FILE = 'master.info'; //pid 序列化信息
 
-    public $processName    = ':swooleMultiProcess'; // 进程重命名, 方便 shell 脚本管理
+    public $processName    = ':swooleProcessManager'; // 进程重命名, 方便 shell 脚本管理
     private $workers;
     private $workersByPidName;
     private $ppid;

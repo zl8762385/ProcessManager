@@ -3,7 +3,7 @@
  * 进程工作文件
  * @by xiaoliang
  * */
-namespace Kcloze\MultiProcess;
+namespace Clever\ProcessManager;
 
 use Pheanstalk\Exception;
 

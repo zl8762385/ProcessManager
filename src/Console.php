@@ -1,13 +1,11 @@
 <?php
 
 /*
- * This file is part of PHP CS Fixer.
- * (c) kcloze <pei.greet@qq.com>
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
+ * 控制台
+ * @by xiaoliang
+ * */
 
-namespace Kcloze\MultiProcess;
+namespace Clever\ProcessManager;
 
 class Console
 {
@@ -117,11 +115,11 @@ class Console
     {
         $msg=<<<'EOF'
 NAME
-      php multiprocess - manage multiprocess
+      php processmanager - manage processmanager 
 
 SYNOPSIS
-      php multiprocess command [options]
-          Manage multiprocess daemons.
+      php processmanager command [options]
+          Manage processmanager daemons.
 
 
 WORKFLOWS
@@ -132,15 +130,15 @@ WORKFLOWS
 
 
       -s restart
-      Stop, then start multiprocess master and workers.
+      Stop, then start processmanager master and workers.
 
       -s start 
-      Start multiprocess master and workers.
+      Start processmanager master and workers.
       -s start -c=./config
-      Start multiprocess with specail config file.
+      Start processmanager with specail config file.
 
       -s stop
-      Wait all running workers smooth exit, please check multiprocess status for a while.
+      Wait all running workers smooth exit, please check processmanager status for a while.
 
       -s exit
       Kill all running workers and master PIDs.

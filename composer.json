@@ -1,12 +1,12 @@
 {
-    "name": "kcloze/multiprocess",
-    "description": "基于swoole的cli多进程管理",
+    "name": "clever/processmanager",
+    "description": "基于swoole的cli多进程管理管理",
     "keywords": [
         "swoole",
         "多进程",
-        "multi-process"
+        "ProcessManager"
     ],
-    "homepage": "https://github.com/kcloze/multiprocess",
+    "homepage": "https://github.com/zl8762385/ProcessManager",
     "license": "MIT",
     "require": {
         "php": ">=7.0",
@@ -14,16 +14,16 @@
     },
     "authors": [
         {
-            "name": "kcloze",
-            "email": "pei.greet@qq.com"
+            "name": "xiaoliang",
+            "email": "zl8762385@163.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Kcloze\\MultiProcess\\": "src"
+            "Clever\\ProcessManager\\": "src"
         }
     },
     "bin": [
-        "multiProcess"
+        "processmanager"
     ]
 }

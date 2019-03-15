@@ -1,0 +1,15 @@
+[Unit]
+Description=ProcessManager Server
+After=network.target
+After=syslog.target
+
+[Service]
+Type=forking
+PIDFile=/media/clever/8685937c-af42-4319-aa9b-bb123ccd18ba/data/www/clever/processmanager/log/master.pid
+ExecStart=/usr/bin/php7.0 /media/clever/processmanager/processmanager.php start >> /media/clever/processmanager/log/server.log 2>&1
+ExecStop=/bin/kill $MAINPID
+ExecReload=/bin/kill -USR1 $MAINPID
+Restart=always
+
+[Install]
+WantedBy=multi-user.target graphical.target

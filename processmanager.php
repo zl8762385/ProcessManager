@@ -2,7 +2,7 @@
 <?php
 /*
  * 入口脚本
- * 使用方法：php multiprocess -s stop -c member.php
+ * 使用方法：php processmanager -s stop -c member.php
  * */
 
 define('PROCESS_PATH', __DIR__);
@@ -13,13 +13,13 @@ $globalConfig = require_once PROCESS_PATH . '/globalConfig.php';
 
 $param = getopt('s:c:');
 $opt =$param['s'] ?? '';
-$configFile =$param['c'] ?? '';
+$configFile =$param['c'] ?? die('找不到配置文件') ;
 
 // 业务工作目录
 $workConfigDir = $globalConfig['workerDir'];
 
-if ( !file_exists( $workConfigDir ) ) {
-    die('目录不存在');
+if ( !file_exists( $workConfigDir )) {
+    die('业务目录不存在');
 } else {
     $configFile = $workConfigDir . '/' . $configFile;
 }
@@ -33,5 +33,5 @@ if ($configFile && file_exists($configFile)) {
 // 静态配饰和业务配置合并
 $config = array_merge( $globalConfig, $config );
 
-$console = new Kcloze\MultiProcess\Console($opt, $config);
+$console = new \Clever\ProcessManager\Console($opt, $config);
 $console->run();

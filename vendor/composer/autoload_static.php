@@ -7,14 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInit4b692f463b6a33040083191f5f44da32
 {
     public static $prefixLengthsPsr4 = array (
-        'K' => 
+        'C' => 
         array (
-            'Kcloze\\MultiProcess\\' => 20,
+            'Clever\\ProcessManager\\' => 22,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Kcloze\\MultiProcess\\' => 
+        'Clever\\ProcessManager\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

@@ -2,7 +2,7 @@
 <?php
 /*
  * 入口脚本
- * 使用方法：php multiprocess -s stop -c member.php
+ * 使用方法：php processmanager -s stop -c member.php
  * */
 
 define('PROCESS_PATH', __DIR__);
@@ -33,5 +33,5 @@ if ($configFile && file_exists($configFile)) {
 // 静态配饰和业务配置合并
 $config = array_merge( $globalConfig, $config );
 
-$console = new Kcloze\MultiProcess\Console($opt, $config);
+$console = new \Clever\ProcessManager\Console($opt, $config);
 $console->run();

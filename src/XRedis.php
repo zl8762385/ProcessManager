@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Kcloze\MultiProcess;
+namespace Clever\ProcessManager;
 ini_set('default_socket_timeout', -1);
 
 use Exception;
