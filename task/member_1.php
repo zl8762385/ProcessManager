@@ -13,7 +13,7 @@ class member_1 {
 //        $lists = $menu_db->select("*",'',1);
 //        print_r($lists);
 
-        echo "member 111112222  \n";
+        echo "member 12345  \n";
 
         /*
         $tmp = str_repeat('http://www.nowamagic.net/', 800000);
