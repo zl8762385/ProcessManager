@@ -54,7 +54,7 @@
 ### 5.4 强制重启
 * php processmanager -s restart -c serviceConf.php
 ### 5.5 监控
-* ps -ef|grep 'process'
+* ps -ef| grep 'process'
 
 ### 5.6 启动参数说明
 ```
