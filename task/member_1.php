@@ -13,9 +13,7 @@ class member_1 {
 //        $lists = $menu_db->select("*",'',1);
 //        print_r($lists);
 
-        echo test().PHP_EOL;
         echo "member 111112222  \n";
-        sleep(10);
 
         /*
         $tmp = str_repeat('http://www.nowamagic.net/', 800000);

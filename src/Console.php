@@ -52,7 +52,7 @@ class Console
         $this->logger->log(($signal == SIGUSR1) ? 'smooth to exit...' : 'force to exit...');
 
         if (isset($this->config['pidPath']) && !empty($this->config['pidPath'])) {
-            $masterPidFile=$this->config['pidPath'] .'/'.$this->config['moduleName'].'_master.pid';
+            $masterPidFile=$this->config['pidPath'] .'/'.$this->config['serviceMark'].'_master.pid';
         } else {
             die('config pidPath must be set!');
         }
@@ -155,7 +155,7 @@ EOF;
      * 保存master状态
      * */
     private function saveMasterData($data=[]) {
-        $mName = $this->config['moduleName'] ?? '' ;
+        $mName = $this->config['serviceMark'] ?? '' ;
         $pidInfoFile =$this->config['pidPath'] . '/' . $mName .'_'. Process::PID_INFO_FILE;
 
         file_put_contents($pidInfoFile, serialize($data));
