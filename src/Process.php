@@ -15,8 +15,8 @@ class Process
     const STATUS_STOP                ='stop'; //主进程stop状态
     const STATUS_RECOVER             ='recover'; //主进程recover状态
     const MASTER_KEY                 ='Status'; //主进程recover状态
-    const WORKER_STATUS_KEY          ='Status-'; //主进程recover状态
-    const REDIS_WORKER_MEMBER_KEY    ='Members-'; //主进程recover状态
+    const WORKER_STATUS_KEY          ='Status-'; //worker状态
+    const REDIS_WORKER_MEMBER_KEY    ='Members-'; //worker成员pid列表
 
     const PID_INFO_FILE = 'master.info'; //pid 序列化信息
 
@@ -45,7 +45,7 @@ class Process
         $this->logger = new Logs(Config::getConfig()['logPath'] ?? '', $this->config['logSaveFileApp'] ?? '');
 
         if (isset($this->config['pidPath']) && !empty($this->config['pidPath'])) {
-            $mName = $this->config['moduleName'] ?? '' ;
+            $mName = $this->config['serviceMark'] ?? '' ;
             Utils::mkdir($this->config['pidPath']);
             $this->pidFile    =$this->config['pidPath'] . '/' . $mName .'_'. $this->pidFile;
             $this->pidInfoFile =$this->config['pidPath'] . '/' . $mName .'_'. self::PID_INFO_FILE;
@@ -93,14 +93,14 @@ class Process
         $this->configWorkersByNameNum=[];
         foreach ($this->config['exec'] as $key => $value) {
 
-            $workOne['name']    =$value['name'];
-            $workOne['max_request'] =$value['max_request'];
-            $workOne['memory_limit'] =$value['memory_limit'];
+            $workOne['name']    = $value['name'];
+            $workOne['max_request'] = $value['max_request'];
+            $workOne['memory_limit'] = $value['memory_limit'];
             //子进程带上通用识别文字，方便ps查询进程
             // $workOne['binArgs']=array_merge($value['binArgs'], [$this->processName]);
             //开启多个子进程
             for ($i = 0; $i < $value['workNum']; $i++) {
-                $this->reserveExec($i, $workOne);
+                $this->createWorker($i, $workOne);
             }
             $this->configWorkersByNameNum[$value['name']] = $value['workNum'];
         }
@@ -121,28 +121,26 @@ class Process
                 continue;
             }
 
-            $workOne['name'] =$value['name'];
-            $workOne['max_request'] =$value['max_request'];
-            $workOne['memory_limit'] =$value['memory_limit'];
+            $workOne['name'] = $value['name'];
+            $workOne['max_request'] = $value['max_request'];
+            $workOne['memory_limit'] = $value['memory_limit'];
             //子进程带上通用识别文字，方便ps查询进程
             // $workOne['binArgs']=array_merge($value['binArgs'], [$this->processName]);
             //开启多个子进程
             for ($i = 0; $i < $value['workNum']; $i++) {
-                $this->reserveExec($i, $workOne);
+                $this->createWorker($i, $workOne);
             }
         }
 
         $this->saveWorkerStatus([self::WORKER_STATUS_KEY . $workName=>self::STATUS_RUNNING]);
     }
 
-    /**
-     * 启动子进程，跑业务代码
-     *
-     * @param [type] $num
-     * @param [type] $workOne
-     * @param mixed  $workNum
-     */
-    public function reserveExec($workNum, $workOne)
+    /*
+     * 启动子进程 跑业务代码
+     * @param $workNum int 进程数
+     * @param $workOne [] 进程相关数据
+     * */
+    public function createWorker($workNum, $workOne)
     {
         $reserveProcess = new \Swoole\Process(function ($worker) use ($workNum, $workOne) {
             $this->checkMpid($worker);
@@ -193,18 +191,22 @@ class Process
     public function registSignal()
     {
         \Swoole\Process::signal(SIGTERM, function ($signo) {
+            echo 11;
             $this->killWorkersAndExitMaster();
         });
 
         \Swoole\Process::signal(SIGKILL, function ($signo) {
+            echo 22;
             $this->killWorkersAndExitMaster();
         });
 
         \Swoole\Process::signal(SIGUSR1, function ($signo) {
+            echo 333;
             $this->waitWorkers();
         });
 
         \Swoole\Process::signal(SIGCHLD, function ($signo) {
+            echo 44;
             while (true) {
                 $ret = \Swoole\Process::wait(false);
                 if ($ret) {
@@ -337,6 +339,7 @@ class Process
     {
         @unlink($this->pidFile);
         //退出主程  删除掉其他info文件信息 by:xiaoliang
+
         @unlink($this->pidInfoFile);
         @unlink($this->workerStatusFile);
         $this->clearMasterData();
@@ -389,7 +392,7 @@ class Process
 
         $data=$this->configWorkersByNameNum;
         foreach ((array) $data as $key => $value) {
-            // $value && $this->redis->del(self::WORKER_STATUS_KEY . $key);
+             $value && $this->redis->del(self::WORKER_STATUS_KEY . $key);
             $value && $this->redis->del(self::REDIS_WORKER_MEMBER_KEY . $key);
             $this->logger->log('主进程退出前删除woker redis key： ' . $key, 'info', $this->logSaveFileWorker);
         }

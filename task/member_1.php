@@ -15,6 +15,7 @@ class member_1 {
 
         echo test().PHP_EOL;
         echo "member 111112222  \n";
+        sleep(10);
 
         /*
         $tmp = str_repeat('http://www.nowamagic.net/', 800000);
