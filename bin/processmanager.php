@@ -7,7 +7,7 @@
  * 您可以自由使用该源码，但是在使用过程中，请保留作者信息。尊重他人劳动成果就是尊重自己
  * */
 
-define('PROCESS_PATH', __DIR__);
+define('PROCESS_PATH', __DIR__. '/../');
 date_default_timezone_set('Asia/Shanghai');
 
 require PROCESS_PATH . '/vendor/autoload.php';
