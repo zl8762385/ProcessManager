@@ -16,8 +16,11 @@ class Jobs {
     // worker配置文件
     private $workerOne= [];
 
-    // 脚本名称
+    // 脚本文件、路径
     private $taskFile = "";
+
+    // 脚本名称
+    private $taskName = "";
 
     // 执行任务前，需要加载的外部框架文件
     private $workerLoadFileBefore = [];
@@ -28,7 +31,8 @@ class Jobs {
 
         $this->logger = new Logs(Config::getConfig()['logPath'] ?? '', $this->config['logSaveFileApp'] ?? '');
 
-        $this->taskFile = $this->workerOne['name'] ?? '';
+        $this->taskFile = $this->workerOne['files'] ?? '';
+        $this->taskName = $this->workerOne['name'] ?? '';
 
         if ( isset( $this->config['workerLoadFileBefore'] ) && !empty( $this->config['workerLoadFileBefore'] ) ) {
             $this->workerLoadFileBefore = $this->config['workerLoadFileBefore'];
@@ -48,7 +52,7 @@ class Jobs {
 
         try {
             // 执行run
-            $taskJobs= new $this->taskFile();
+            $taskJobs= new $this->taskName();
             call_user_func_array( array( $taskJobs, "run"), [] );
         } catch( \Throwable $e ) {
             Utils::catchError($this->logger, $e);

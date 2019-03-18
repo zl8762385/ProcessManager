@@ -7,7 +7,7 @@
 define('GLOBAL_PATH', str_replace('\\', '/', dirname(__FILE__)) . '/');
 
 // 业务代码存放目录
-$workerName = "../task";
+$workerName = "./task";
 
 return $config = [
 
@@ -21,7 +21,7 @@ return $config = [
     'sleepTime' => 40000, // 防止进程CPU使用过高单位:MS，这里是一个保护措施
 
     //业务相关
-    'workerDir' => GLOBAL_PATH . "/$workerName", // task工作目录，用来存放业务代码
+    'workerDir' => GLOBAL_PATH . "/$workerName/", // task工作目录，用来存放业务代码
     'workerLoadFileBefore' => [
         'framework.php'
     ], // 执行任务钱，需要加载的外部框架文件，与 workerDir关联，例：__DIR__ . "/task" . "/framework.php"

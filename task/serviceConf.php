@@ -23,7 +23,8 @@ return $config = [
     // exec任务相关,name的名字不能相同
     'exec'      => [
         [
-            'name' => 'member_1',// 名称即使文件名，请慎用
+            'name' => 'member_1', // 任务名称
+            'files' => 'modules/member_1',// 文件路径，相对于业务目录。如:task/modules/member_1.php
             'max_request' => 0, // 限制进程最大请求数 0=不限制请求书  >0超出销毁
             'memory_limit' => 50, // 单位:MB 最大内存限制，超出将自动销毁重新启动
             'workNum'   => 2

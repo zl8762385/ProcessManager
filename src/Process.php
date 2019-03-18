@@ -95,6 +95,7 @@ class Process
         foreach ($this->config['exec'] as $key => $value) {
 
             $workOne['name']    = $value['name'];
+            $workOne['files']    = $value['files'];
             $workOne['max_request'] = $value['max_request'];
             $workOne['memory_limit'] = $value['memory_limit'];
             //子进程带上通用识别文字，方便ps查询进程
@@ -123,6 +124,7 @@ class Process
             }
 
             $workOne['name'] = $value['name'];
+            $workOne['files']    = $value['files'];
             $workOne['max_request'] = $value['max_request'];
             $workOne['memory_limit'] = $value['memory_limit'];
             //子进程带上通用识别文字，方便ps查询进程
