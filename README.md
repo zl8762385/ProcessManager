@@ -92,6 +92,7 @@ WORKFLOWS
 ## 9. 感谢
 
 * [swoole](http://www.swoole.com/)
+* multiprocess 此框架底层使用的是kcloze开发的框架，因改动很大增加了项目中用到的理念，故而在这里发布出来。后面等项目不忙了，会对底层重构。
 
 ## 如此框架帮您解决了问题，麻烦您右上角star点一下，感谢您的支持.
 
