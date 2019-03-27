@@ -76,7 +76,10 @@ class Process
             }
         }
 
-        \Swoole\Process::daemon();
+        // 是否以daemon方式启动
+        if ( isset( $this->config['isDaemon'] ) && $this->config['isDaemon'] === true ) {
+            \Swoole\Process::daemon();
+        }
         $this->ppid    = getmypid();
         $this->saveMasterPid();
         $this->setProcessName('process master ' . $this->ppid . $this->serviceMark);

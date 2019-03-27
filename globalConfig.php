@@ -10,6 +10,7 @@ define('GLOBAL_PATH', str_replace('\\', '/', dirname(__FILE__)) . '/');
 $workerName = "./task";
 
 return $config = [
+    'isDaemon' => false, // 是否以daemon启动，如您打算用supervisor管理，可在这里改为false
 
     //日志
     'logPath'=> GLOBAL_PATH . "/$workerName/log",//log目录

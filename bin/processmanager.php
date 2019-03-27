@@ -41,12 +41,12 @@ if ( isset( $config['exec'] ) ) {
     }
 }
 
-//print_r( $config );
-//exit;
 
 // 静态配饰和业务配置合并
 $config = array_merge( $globalConfig, $config );
 
+//print_r( $config );
+//exit;
 $console = new \Clever\ProcessManager\Console($opt, $config);
 $console->run();
 
