@@ -1,6 +1,6 @@
 # processManager 
 
-
+* Daemon方式可自由切换，变为进程组长后可使用supervisor进行管理
 * 基于swoole的脚本管理，用于多进程和守护进程管理；
 * 可轻松让普通脚本变守护进程和多进程执行；
 * 进程个数可配置，可以根据配置一次性执行多条命令；
@@ -35,7 +35,7 @@
 ```
     'exec'      => [
         [
-            'name' => 'member_1',// 名称即使文件名，请慎用
+            'files' => 'modules/member_1',// 文件路径，相对于业务目录。如:task/modules/member_1.php
             'max_request' => 0, // 限制进程最大请求数 0=不限制请求书  >0超出销毁
             'memory_limit' => 50, // 单位:MB 最大内存限制，超出将自动销毁重新启动
             'workNum'   => 2
