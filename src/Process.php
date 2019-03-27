@@ -1,10 +1,9 @@
 <?php
 /*
- * 进程管理核心文件
+ * 进程管理
  * @author xiaoliang
  * 您可以自由使用该源码，但是在使用过程中，请保留作者信息。尊重他人劳动成果就是尊重自己
  * */
-
 
 namespace Clever\ProcessManager;
 
@@ -21,7 +20,7 @@ class Process
 
     const PID_INFO_FILE = 'master.info'; //pid 序列化信息
 
-    public $processName    = ':swooleProcessManager'; // 进程重命名, 方便 shell 脚本管理
+    public $serviceMark = ':process'; // 进程重命名, 方便 shell 脚本管理
     private $workers;
     private $workersByPidName;
     private $ppid;
@@ -54,8 +53,8 @@ class Process
         } else {
             die('config pidPath must be set!');
         }
-        if (isset($this->config['processName']) && !empty($this->config['processName'])) {
-            $this->processName = $this->config['processName'];
+        if (isset($this->config['serviceMark']) && !empty($this->config['serviceMark'])) {
+            $this->serviceMark = $this->config['serviceMark'];
         }
         if (isset($this->config['sleepTime']) && !empty($this->config['sleepTime'])) {
             $this->sleepTime = $this->config['sleepTime'];
@@ -80,7 +79,7 @@ class Process
         \Swoole\Process::daemon();
         $this->ppid    = getmypid();
         $this->saveMasterPid();
-        $this->setProcessName('process master ' . $this->ppid . $this->processName);
+        $this->setProcessName('process master ' . $this->ppid . $this->serviceMark);
     }
 
     public function start()
@@ -99,7 +98,7 @@ class Process
             $workOne['max_request'] = $value['max_request'];
             $workOne['memory_limit'] = $value['memory_limit'];
             //子进程带上通用识别文字，方便ps查询进程
-            // $workOne['binArgs']=array_merge($value['binArgs'], [$this->processName]);
+            // $workOne['binArgs']=array_merge($value['binArgs'], [$this->serviceMark]);
             //开启多个子进程
             for ($i = 0; $i < $value['workNum']; $i++) {
                 $this->createWorker($i, $workOne);
@@ -128,7 +127,7 @@ class Process
             $workOne['max_request'] = $value['max_request'];
             $workOne['memory_limit'] = $value['memory_limit'];
             //子进程带上通用识别文字，方便ps查询进程
-            // $workOne['binArgs']=array_merge($value['binArgs'], [$this->processName]);
+            // $workOne['binArgs']=array_merge($value['binArgs'], [$this->serviceMark]);
             //开启多个子进程
             for ($i = 0; $i < $value['workNum']; $i++) {
                 $this->createWorker($i, $workOne);
@@ -149,6 +148,8 @@ class Process
             $this->checkMpid($worker);
             //$beginTime=microtime(true);
             try {
+                // 设置子进程名称
+                $this->setProcessName( "process master:{$this->ppid}, child name:{$workOne['files']}"  );
                 $job = new Jobs( $workOne );
 
                 $num = 0;
@@ -194,22 +195,18 @@ class Process
     public function registSignal()
     {
         \Swoole\Process::signal(SIGTERM, function ($signo) {
-            echo 11;
             $this->killWorkersAndExitMaster();
         });
 
         \Swoole\Process::signal(SIGKILL, function ($signo) {
-            echo 22;
             $this->killWorkersAndExitMaster();
         });
 
         \Swoole\Process::signal(SIGUSR1, function ($signo) {
-            echo 333;
             $this->waitWorkers();
         });
 
         \Swoole\Process::signal(SIGCHLD, function ($signo) {
-            echo 44;
             while (true) {
                 $ret = \Swoole\Process::wait(false);
                 if ($ret) {
@@ -311,12 +308,12 @@ class Process
         if ($this->workers) {
             foreach ($this->workers as $pid => $worker) {
                 //强制杀workers子进程
-            if (\Swoole\Process::kill($pid) == true) {
-                unset($this->workers[$pid]);
-                $this->logger->log('子进程[' . $pid . ']收到强制退出信号,退出成功', 'info', $this->logSaveFileWorker);
-            } else {
-                $this->logger->log('子进程[' . $pid . ']收到强制退出信号,但退出失败', 'info', $this->logSaveFileWorker);
-            }
+                if (\Swoole\Process::kill($pid) == true) {
+                    unset($this->workers[$pid]);
+                    $this->logger->log('子进程[' . $pid . ']收到强制退出信号,退出成功', 'info', $this->logSaveFileWorker);
+                } else {
+                    $this->logger->log('子进程[' . $pid . ']收到强制退出信号,但退出失败', 'info', $this->logSaveFileWorker);
+                }
 
                 $this->logger->log('Worker count: ' . count($this->workers), 'info', $this->logSaveFileWorker);
             }
@@ -395,7 +392,7 @@ class Process
 
         $data=$this->configWorkersByNameNum;
         foreach ((array) $data as $key => $value) {
-             $value && $this->redis->del(self::WORKER_STATUS_KEY . $key);
+            $value && $this->redis->del(self::WORKER_STATUS_KEY . $key);
             $value && $this->redis->del(self::REDIS_WORKER_MEMBER_KEY . $key);
             $this->logger->log('主进程退出前删除woker redis key： ' . $key, 'info', $this->logSaveFileWorker);
         }

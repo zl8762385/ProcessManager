@@ -115,11 +115,11 @@ class Console
     {
         $msg=<<<'EOF'
 NAME
-      php processmanager - manage processmanager 
+      php multiprocess - manage multiprocess
 
 SYNOPSIS
-      php processmanager command [options]
-          Manage processmanager daemons.
+      php multiprocess command [options]
+          Manage multiprocess daemons.
 
 
 WORKFLOWS
@@ -130,15 +130,15 @@ WORKFLOWS
 
 
       -s restart
-      Stop, then start processmanager master and workers.
+      Stop, then start multiprocess master and workers.
 
       -s start 
-      Start processmanager master and workers.
+      Start multiprocess master and workers.
       -s start -c=./config
-      Start processmanager with specail config file.
+      Start multiprocess with specail config file.
 
       -s stop
-      Wait all running workers smooth exit, please check processmanager status for a while.
+      Wait all running workers smooth exit, please check multiprocess status for a while.
 
       -s exit
       Kill all running workers and master PIDs.

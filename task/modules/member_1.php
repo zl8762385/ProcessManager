@@ -13,7 +13,10 @@ class member_1 {
 //        $lists = $menu_db->select("*",'',1);
 //        print_r($lists);
 
-        echo "member 12345  \n";
+
+        $rand = rand(0, 100);
+//        $rand = 1111;
+        file_put_contents("/workspace/a12.txt", $rand. "=^=". PHP_EOL , FILE_APPEND);
 
         /*
         $tmp = str_repeat('http://www.nowamagic.net/', 800000);

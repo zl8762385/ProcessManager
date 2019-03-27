@@ -32,8 +32,30 @@ if ($configFile && file_exists($configFile)) {
     die('找不到配置文件.');
 }
 
+// 处理配置数据
+if ( isset( $config['exec'] ) ) {
+    foreach( $config['exec'] as $k => &$v ) {
+        if ( isset( $v['files'] ) && !empty( $v['files'] ) ) {
+            $v['name'] = parseScriptToName( $v['files'] );
+        }
+    }
+}
+
+//print_r( $config );
+//exit;
+
 // 静态配饰和业务配置合并
 $config = array_merge( $globalConfig, $config );
 
 $console = new \Clever\ProcessManager\Console($opt, $config);
 $console->run();
+
+
+// 解析exec->files脚本名称
+function parseScriptToName( $files ) {
+    if ( empty( $files ) ) {
+        return '';
+    }
+    $fileName = strstr( $files, '/' );
+    return substr( $fileName, 1, strlen($fileName) );
+}
